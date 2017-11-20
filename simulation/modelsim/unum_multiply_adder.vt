@@ -1,0 +1,105 @@
+// Copyright (C) 2017  Intel Corporation. All rights reserved.
+// Your use of Intel Corporation's design tools, logic functions 
+// and other software and tools, and its AMPP partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Intel Program License 
+// Subscription Agreement, the Intel Quartus Prime License Agreement,
+// the Intel MegaCore Function License Agreement, or other 
+// applicable license agreement, including, without limitation, 
+// that your use is for the sole purpose of programming logic 
+// devices manufactured by Intel and sold by Intel or its 
+// authorized distributors.  Please refer to the applicable 
+// agreement for further details.
+
+// *****************************************************************************
+// This file contains a Verilog test bench template that is freely editable to  
+// suit user's needs .Comments are provided in each section to help the user    
+// fill out necessary details.                                                  
+// *****************************************************************************
+// Generated on "11/04/2017 17:03:28"
+                                                                                
+// Verilog Test Bench template for design : unum_multiply_adder
+// 
+// Simulation tool : ModelSim-Altera (Verilog)
+// 
+
+`timescale 1 ps/ 1 ps
+module unum_multiply_adder_vlg_tst();
+// constants                                           
+// general purpose registers
+reg eachvec;
+// test vector input registers
+reg clk;
+reg [31:0] unum1;
+reg [31:0] unum2;
+reg [31:0] unum3;
+// wires                                               
+wire NaN;
+wire [31:0]  unum_o;
+
+// assign statements (if any)                          
+unum_multiply_adder i1 (
+// port map - connection between master ports and signals/registers   
+	.NaN(NaN),
+	.clk(clk),
+	.unum1(unum1),
+	.unum2(unum2),
+	.unum3(unum3),
+	.unum_o(unum_o)
+);
+initial                                                
+begin                                                  
+// code that executes only once                        
+// insert code here --> begin                          
+//   unum1<=32'hb5800000;   //-6.5*7.5=-48.75(0xa9e8_0000)
+//	unum2<=32'h4b800000;
+//	unum3<=32'h5600_0000;
+
+//   unum1<=32'hb5800000;   //-6.5*7.5=-48.75(0xa9e8_0000)
+//	unum2<=32'h00000000;
+//	unum3<=32'h5600_0000;
+	
+	
+	clk<=1'b0;
+	unum1<=32'h305a_1cac;   //0.068*1.333=0.090644(0x31cd1c7e) +2(0x4400_0000)=0x442e68e4
+	unum2<=32'h4154_fdf4;
+	unum3<=32'h4400_0000;
+//	unum3<=32'h5000_0000;///+15=0x5005cd1c
+	#10;
+   unum1<=32'hb5800000;   //-6.5*7.5=-48.75(0xa9e8_0000)+16=0xabe80000
+	unum2<=32'h4b800000;
+	unum3<=32'h5000_0000;
+	#10;
+   unum1<=32'hb5800000;   //-6.5*7.5=-48.75(0xa9e8_0000)+0
+	unum2<=32'h4b800000;
+	unum3<=32'h0000_0000;
+	#10;
+	unum1<=32'ha73b_3333;   //-76.3+-12.4=-88.7(0xa674_cccd)
+	unum2<=32'h4000_0000;
+	unum3<=32'hb1cc_cccd;
+	#10;
+	unum1<=32'h4499_999a;//2.3-5.5=-3.19(0xb999_999a)
+	unum2<=32'h4000_0000;
+	unum3<=32'hb680_0000;
+	#10;
+	unum1<=32'h55e0_0000; //47+53.3=100.3(0x5a44_cccd)
+	unum2<=32'h4000_0000;
+	unum3<=32'h56a9_999a;
+	
+// --> end                                             
+//$display("Running testbench");                       
+end                                                    
+always                                                 
+// optional sensitivity list                           
+// @(event1 or event2 or .... eventn)                  
+begin                                                  
+// code executes for every event on sensitivity list   
+// insert code here --> begin                          
+    #5 clk<=~clk;                                                   
+//@eachvec;                                              
+// --> end                                             
+end                                                    
+endmodule
+
